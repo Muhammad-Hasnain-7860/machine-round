@@ -10,7 +10,6 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-[#f7f7f5] text-zinc-950">
       <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        {/* Top Header */}
         <header className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.14em] text-zinc-400">
@@ -34,7 +33,6 @@ const Dashboard = () => {
           </button>
         </header>
 
-        {/* Overview Stats */}
         <section className="grid gap-px overflow-hidden border border-zinc-200 bg-zinc-200 sm:grid-cols-2 lg:grid-cols-4">
           <div className="bg-white p-5 sm:p-6">
             <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-zinc-400">
@@ -250,11 +248,16 @@ const Dashboard = () => {
                     <div
                       className="h-full bg-zinc-950"
                       style={{
-                        width: `${Math.floor(
-                          (DSA.filter((qs) => qs.status === "Complete").length /
-                            DSA.length) *
-                            100,
-                        )}%`,
+                        width: `${
+                          DSA.length > 0
+                            ? Math.floor(
+                                (DSA.filter((qs) => qs.status === "Complete")
+                                  .length /
+                                  DSA.length) *
+                                  100,
+                              )
+                            : 0
+                        }%`,
                       }}
                     />
                   </div>
@@ -280,12 +283,17 @@ const Dashboard = () => {
                     <div
                       className="h-full bg-zinc-950"
                       style={{
-                        width: `${Math.floor(
-                          (interview.filter((qs) => qs.status === "Complete")
-                            .length /
-                            interview.length) *
-                            100,
-                        )}%`,
+                        width: `${
+                          interview.length > 0
+                            ? Math.floor(
+                                (interview.filter(
+                                  (qs) => qs.status === "Complete",
+                                ).length /
+                                  interview.length) *
+                                  100,
+                              )
+                            : 0
+                        }%`,
                       }}
                     />
                   </div>
@@ -311,12 +319,17 @@ const Dashboard = () => {
                     <div
                       className="h-full bg-zinc-950"
                       style={{
-                        width: `${Math.floor(
-                          (machine.filter((qs) => qs.status === "Complete")
-                            .length /
-                            machine.length) *
-                            100,
-                        )}%`,
+                        width: `${
+                          machine.length > 0
+                            ? Math.floor(
+                                (machine.filter(
+                                  (qs) => qs.status === "Complete",
+                                ).length /
+                                  machine.length) *
+                                  100,
+                              )
+                            : 0
+                        }%`,
                       }}
                     />
                   </div>
@@ -326,7 +339,8 @@ const Dashboard = () => {
                   <div className="mb-2 flex justify-between text-xs">
                     <span className="font-medium">Git</span>
                     <span className="text-zinc-400">
-                      {machine.length > 0
+                      {allQuestions.filter((qs) => qs.category === "Git")
+                        .length > 0
                         ? Math.round(
                             (allQuestions.filter((qs) => {
                               return (
@@ -346,15 +360,22 @@ const Dashboard = () => {
                     <div
                       className="h-full bg-zinc-950"
                       style={{
-                        width: `${Math.floor(
-                          (allQuestions.filter(
-                            (qs) =>
-                              qs.category === "Git" && qs.status === "Complete",
-                          ).length /
-                            allQuestions.filter((qs) => qs.category === "Git")
-                              .length) *
-                            100,
-                        )}%`,
+                        width: `${
+                          allQuestions.filter((qs) => qs.category === "Git")
+                            .length > 0
+                            ? Math.floor(
+                                (allQuestions.filter(
+                                  (qs) =>
+                                    qs.category === "Git" &&
+                                    qs.status === "Complete",
+                                ).length /
+                                  allQuestions.filter(
+                                    (qs) => qs.category === "Git",
+                                  ).length) *
+                                  100,
+                              )
+                            : 0
+                        }%`,
                       }}
                     />
                   </div>
